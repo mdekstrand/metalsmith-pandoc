@@ -51,10 +51,15 @@ function plugin(options){
       var dir = dirname(file);
       var html = basename(file, extname(file)) + extension;
       if ('.' != dir) html = dir + '/' + html;
+      
+      var docArgs = args;
+      if (data.pandoc_args) {
+        docArgs = args.concat(data.pandoc_args);
+      }
 
       debug('Converting file %s', file);
       var md = data.contents.toString();
-      pdc(md, from, to, args, opts, function(err,res){
+      pdc(md, from, to, docArgs, opts, function(err,res){
         if (err){
           msg = 'metalsmith-pandoc: ' + file + ' - ' + err;
           debug(msg);
