@@ -37,9 +37,10 @@ function plugin(options){
   var opts = options.opts || [];
   var pattern = options.pattern || '**/*.md';
   var extension = options.ext || '.html';
+  var jobCount = options.jobCount || 100;
 
   return function(files, metalsmith, done){
-    async.eachLimit(Object.keys(files), 100, function(file, cb){
+    async.eachLimit(Object.keys(files), jobCount, function(file, cb){
       debug('Checking file: %s', file);
       debug('Multimatch: %s %s %s', file, pattern, match(file, pattern))
       if (match(file, pattern).length == 0) {
