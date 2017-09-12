@@ -37,10 +37,11 @@ function plugin(options){
   var opts = options.opts || [];
   var pattern = options.pattern || '**/*.md';
   var extension = options.ext || '.html';
+  var limit = options.jobCount || 100;
 
   return function(files, metalsmith, done){
     selectedFiles = match(Object.keys(files), pattern)
-    async.eachLimit(selectedFiles, 100, function(file, cb){
+    async.eachLimit(selectedFiles, limit, function(file, cb){
 
       var data = files[file];
       var dir = dirname(file);
